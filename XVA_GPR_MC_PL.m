@@ -35,8 +35,7 @@ function [XVA,Price_rf,Price_ra]=XVA_GPR_MC_PL(par,my_pool)
 %    6.  At each step train / warm‑start two GP models (fitrgp) in parallel.
 %    7.  Return the American price (Price_rf), the risk adjusted price 
 %        (Price_ra) and the total adjustment XVA = Price_rf − Price_ra.
-
-rng(1); % Set random seed for reproducibility
+ 
 
 %% ---------------------------------------------------------------------
 %% 1. UNPACK INPUT PARAMETERS

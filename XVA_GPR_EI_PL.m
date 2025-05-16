@@ -36,8 +36,7 @@ function [XVA,Price_rf,Price_ra]=XVA_GPR_EI_PL(par,my_pool)
 %      for the risky measure.
 %   7. Finally, collect all results and return XVA, Price_rf and Price_ra.
 %-------------------------------------------------------------------------%
-
-rng(1); % Set random seed for reproducibility
+ 
 
 
 %% ---------------------------------------------------------------------

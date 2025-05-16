@@ -60,7 +60,6 @@ function [XVA, ci_XVA, Price_rf, ci_rf, Price_ra, ci_ra] = XVA_LSMC(par)
 %    altered**; only explanatory comments have been added.
 % ======================================================================
 
-rng(1); % Set random seed for reproducibility
 
 %% ---------------------------------------------------------------------
 %% 1. UNPACK INPUT PARAMETERS
@@ -253,9 +252,8 @@ ci_rf    = 1.96 * std(PO_rf) / sqrt(M);
 
 Price_ra = mean(PO_ra);
 ci_ra    = 1.96 * std(PO_ra) / sqrt(M);
-
-PO_rf_ra=PO_rf-PO_ra;
+ 
 XVA = Price_rf - Price_ra;  % total XVA adjustment
-ci_XVA    = 1.96 * std(PO_rf_ra) / sqrt(M);
+ci_XVA    = ci_rf+ci_ra;
 
 end  % =========================== END OF FUNCTION =====================
