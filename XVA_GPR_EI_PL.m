@@ -135,7 +135,7 @@ end
 
 prime_num = primes(1000);
 if(D < 60)
-    Halton = haltonset(D,'Skip',1e4,'Leap',prime_num(D+1)-1);
+    Halton = haltonset(D,'Skip',1e6,'Leap',prime_num(D+1)-1);
 else
     Halton = haltonset(D,'Skip',1e4);
 end
@@ -160,7 +160,7 @@ for n = 1:N
     tn = n * dt;                     % current time
 
     % Brownian part (scaled by sqrt(t) or sqrt(T) depending on D)
-    if(D < 15)
+    if(D < 10)
         Gn = sqrt(T) * G0;           % time‑independent trick for low dims
     else
         Gn = sqrt(tn) * G0;          % standard Brownian scaling
