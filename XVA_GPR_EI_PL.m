@@ -204,8 +204,7 @@ Nm1       = N - 1;                   % last index of backward loop
 % -------- Parallel backward induction (European part) -------------
 % The heavy Monte‑Carlo integrations across
 % paths are parallelised over the time index n.
-
-payoff_fun_cst = parallel.pool.Constant(payoff_fun); % broadcast handle
+ 
 
  parfor (n = 1:Nm1, my_pool)  
     % === 7.1. Set simulation nodes at time n ===
@@ -255,7 +254,7 @@ payoff_fun_cst = parallel.pool.Constant(payoff_fun); % broadcast handle
             Xnp    = Xn(p,:);           % row vector (1 × D)
             XnF_A  = Xnp .* Fnp0_A;     % forward paths (antithetic)
             XnF_B  = Xnp .* Fnp0_B;
-            payout = payoff_fun_cst(XnF_A) + payoff_fun_cst(XnF_B);
+            payout = payoff_fun(XnF_A) + payoff_fun(XnF_B);
 
             % --- adaptive MC variance control ---
             std_pay = 0.5 * std(payout);
@@ -264,7 +263,7 @@ payoff_fun_cst = parallel.pool.Constant(payoff_fun); % broadcast handle
                 nMC   = min(round((ci_fac * std_pay * dfn / EU_TOL)^2), nMC_max);
                 XnF_A = Xnp .* Fnp_A(1:nMC,:);
                 XnF_B = Xnp .* Fnp_B(1:nMC,:);
-                payout = payoff_fun_cst(XnF_A) + payoff_fun_cst(XnF_B);
+                payout = payoff_fun(XnF_A) + payoff_fun(XnF_B);
             end
             V_EU(p,n) = dfn * 0.5 * mean(payout);
         end
