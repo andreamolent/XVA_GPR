@@ -160,7 +160,7 @@ for n = 1:N
     tn = n * dt;                     % current time
 
     % Brownian part (scaled by sqrt(t) or sqrt(T) depending on D)
-    if(D < 10)
+    if(D < 15)
         Gn = sqrt(T) * G0;           % time‑independent trick for low dims
     else
         Gn = sqrt(tn) * G0;          % standard Brownian scaling
