@@ -115,16 +115,13 @@ end
 %% ---------------------------------------------------------------------
 % 4a. Halton grid (P × D) for GPR design‑set -----------------------------
 prime_num = primes(1000);
-if(D < 60)
-    Halton = haltonset(D,'Skip',1e4,'Leap',prime_num(D+1)-1);
-else
-    Halton = haltonset(D,'Skip',1e4);
-end
+ Halton = haltonset(D,'Skip',1);
+ 
 Halton_points = net(Halton, P-1);
 G_design = icdf(makedist('Normal'), Halton_points');   % (D × P-1)
 
 % 4b. Halton grid (M × D) for Brownian increments in MC (antithetic) ----- 
-Halton2   = haltonset(D,'Skip',1e4,'Leap',prime_num(D+2)-1); 
+Halton2   = haltonset(D,'Skip',1e3,'Leap',prime_num(D+1)-1); 
 G_MC = icdf(makedist('Normal'), net(Halton2, par.M)');
 
 GG   = sqrt(dt) * CS * G_MC;                  % scaled Brownian increments
@@ -153,8 +150,7 @@ end
 
 %% ---------------------------------------------------------------------
 %% 6. EUROPEAN COMPONENT (ANTITHETIC MC)
-%% ---------------------------------------------------------------------
-eu_tic = tic();
+%% --------------------------------------------------------------------- 
 % Generate antithetic normals once for the whole EU routine ------------
 CSEU   = CS * randn(D, nMC_max);
 

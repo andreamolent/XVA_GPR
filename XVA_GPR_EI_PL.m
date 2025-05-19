@@ -134,12 +134,12 @@ end
 % GPR models are trained.  Skip / leap parameters ensure better uniformity.
 
 prime_num = primes(1000);
+ 
 if(D < 60)
     Halton = haltonset(D,'Skip',1e6,'Leap',prime_num(D+1)-1);
 else
     Halton = haltonset(D,'Skip',1e4);
 end
-
 Halton_points = net(Halton, P-1);
 
 % Convert Halton uniform samples into Brownian increments via inverse CDF
